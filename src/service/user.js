@@ -3,7 +3,7 @@ import axios from "axios";
 import { requestNoTK } from "../config/requestNoTK";
 import { request } from "../config/request";
 
-const baseURL = "http://localhost:8080/api/v1";
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 export const activateAccount = async (token) => {
   try {
@@ -200,10 +200,9 @@ export const userAPI = {
     const response = await request.get(`/templates/${id}`);
     return response.data;
   },
-  getTemplateByIdEdit: async (id,userId) => {
+  getTemplateByIdEdit: async (id, userId) => {
     const response = await request.get(`/templates/edit/${id}/user/${userId}`);
     return response.data;
-  
   },
   getTemplateUserById: async (id) => {
     const response = await request.get(`/templates_user/${id}`);
@@ -213,7 +212,7 @@ export const userAPI = {
     const response = await request.get(`/templates_user/link/${linkName}`);
     return response.data;
   },
-  createTemplateUser: async (templateData, UserId, linkName, ) => {
+  createTemplateUser: async (templateData, UserId, linkName) => {
     try {
       const formData = new FormData();
       formData.append("name", templateData.name);
@@ -224,7 +223,7 @@ export const userAPI = {
       formData.append("userId", UserId);
       formData.append("linkName", linkName);
       formData.append("templateId", templateData.templateId);
-  
+
       const response = await request.post("/templates_user", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -399,5 +398,14 @@ export const userAPI = {
   updateInvitation: async (id, payload) => {
     const response = await request.put(`/invitations_user/${id}`, payload);
     return response.data;
+  },
+  getGuestID: async (id) => {
+    try {
+      const response = await request.get(`/guest-list/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching guest by ID:", error);
+      throw error;
+    }
   },
 };
