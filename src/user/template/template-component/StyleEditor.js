@@ -90,7 +90,6 @@ const StyleEditor = ({
     }
   };
 
-  // Load the font if a font family is selected
   useEffect(() => {
     if (activeStyles?.fontFamily) {
       const selectedFont = fonts.find(
@@ -167,7 +166,7 @@ const StyleEditor = ({
           value={activeStyles.fontFamily}
           onChange={(value) => handleStyleChange("fontFamily", value)}
           type="select"
-          options={fonts.map((font) => font.family)}
+          options={fonts?.map((font) => font?.family)}
         />
 
         <Typography variant="subtitle2" sx={{ fontWeight: 500, mt: 2 }}>

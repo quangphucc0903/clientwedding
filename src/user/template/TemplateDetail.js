@@ -11,6 +11,7 @@ import {
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Canvas from "../template/template-component/Canvas";
+import "../../css/font.css";
 
 const TemplateDetail = (props) => {
   const { id } = useParams();
@@ -157,8 +158,8 @@ const TemplateDetail = (props) => {
             >
               <Box
                 sx={{
-                  width: "var(--canvas-width, 800px)",
-                  height: "600px",
+                  width: "var(--canvas-width, 500px)",
+                  height: "800px",
                   position: "relative",
                   "@media (max-width: 700px)": {
                     width: "100%",

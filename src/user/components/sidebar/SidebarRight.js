@@ -20,15 +20,6 @@ const SidebarRight = ({
     selectedComponent?.style?.fontFamily || "Arial"
   );
 
-  const loadFont = (url) => {
-    if (!document.querySelector(`link[href="${url}"]`)) {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = url;
-      document.head.appendChild(link);
-    }
-  };
-
   useEffect(() => {
     if (
       selectedComponent?.type === "text" &&
@@ -38,8 +29,7 @@ const SidebarRight = ({
         (font) => font.family === selectedComponent.style.fontFamily
       );
       if (currentFont) {
-        loadFont(currentFont.url);
-        setSelectedFont(selectedComponent.style.fontFamily); // Set fontFamily to the current selected font
+        setSelectedFont(selectedComponent.style.fontFamily);
       }
     }
   }, [selectedComponent]);
@@ -49,11 +39,12 @@ const SidebarRight = ({
   return (
     <Box
       sx={{
-        position: "absolute",
+        marginTop: "60px",
+        position: "fixed",
         top: 0,
         right: 0,
         width: "300px",
-        height: "450px",
+        height: "100vh",
         background: "#f9f9f9",
         padding: " 20px 16px",
         border: "1px solid #ccc",
@@ -102,14 +93,8 @@ const SidebarRight = ({
             value={selectedFont}
             onChange={(e) => {
               const selectedFontFamily = e.target.value;
-              const selectedFontObj = fonts.find(
-                (font) => font.family === selectedFontFamily
-              );
-              if (selectedFontObj) {
-                loadFont(selectedFontObj.url);
-              }
               handleStyleChange("fontFamily", selectedFontFamily);
-              setSelectedFont(selectedFontFamily); // Set the selected font in state
+              setSelectedFont(selectedFontFamily);
             }}
             fullWidth
             displayEmpty
